@@ -1,57 +1,72 @@
 using UnityEngine;
 using UnityEngine.Video;
 
+[RequireComponent(typeof(AudioSource))]
 public class AnimalSoundTouch : MonoBehaviour
 {
-    [Header("Assign Assets")]
+    [Header("Settings")]
     public AudioClip animalSound;
-    public Transform playerHand; // Drag your "Hand" or "Main Camera" here
-    public float triggerDistance = 1.5f; // How close you need to be (in meters)
+    public float spinSpeed = 200f;
+    public string fingerTag = "MainCamera"; 
 
     private AudioSource _audioSource;
     private VideoPlayer _videoPlayer;
-    private bool _hasPlayed = false; // Prevents it from playing 100 times a second
+    private bool _isPlaying = false;
+    private Quaternion _originalRotation; 
 
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _videoPlayer = GetComponent<VideoPlayer>();
+        _originalRotation = transform.rotation;
+        _audioSource.playOnAwake = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.CompareTag(fingerTag) && !_isPlaying)
+        {
+            Debug.Log($"{gameObject.name} el ile temas etti!");
+            StartAction();
+        }
     }
 
     void Update()
     {
-        // 1. Safety Check: Do we have a hand to track?
-        if (playerHand == null) return;
-
-        // 2. Measure the distance
-        float distance = Vector3.Distance(transform.position, playerHand.position);
-
-        // 3. If close enough, play the content!
-        if (distance < triggerDistance && !_hasPlayed)
+        if (_isPlaying && _videoPlayer == null)
         {
-            PlayContent();
-        }
-        // 4. Optional: Reset if you walk away (so you can play it again)
-        else if (distance > triggerDistance + 1.0f) 
-        {
-            _hasPlayed = false;
+            transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
         }
     }
 
-    void PlayContent()
+    void StartAction()
     {
-        _hasPlayed = true;
-        Debug.Log("Triggered by Distance! Playing: " + gameObject.name);
+        _isPlaying = true;
 
-        if (animalSound != null && _audioSource != null)
+        if (_audioSource != null && animalSound != null)
         {
-            _audioSource.clip = animalSound;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(animalSound);
         }
 
-        if (_videoPlayer != null)
+        if (_videoPlayer != null) 
         {
             _videoPlayer.Play();
         }
+
+   
+        Invoke("StopAction", 3.0f);
+    }
+
+    void StopAction()
+    {
+        _isPlaying = false;
+        
+        if (_videoPlayer != null) 
+        {
+            _videoPlayer.Stop();
+        }
+        
+        transform.rotation = _originalRotation;
     }
 }
