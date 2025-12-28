@@ -16,7 +16,7 @@ Görüntü İşleme: cam2 ve Annotatable Screen üzerinden kamera görüntüsü 
 👥 Proje Ekibi ve Danışmanlar
 Geliştirici: Esra İclal Boğar - @esraiclal
 
-Proje Danışmanı / Hocası: @HocaKullaniciAdi (Lütfen hocanızın GitHub kullanıcı adını buraya yazın)
+Proje Danışmanı / Hocası: @dryuemco 
 
 📦 Kurulum ve Çalıştırma
 Bu repository'yi klonlayın.
