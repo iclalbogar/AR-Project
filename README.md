@@ -1,30 +1,23 @@
-AR Hand Detection & Animal Sounds Project
-Bu proje, MediaPipe Unity Plugin kullanarak gerçek zamanlı el takibi yapan ve kullanıcının işaret parmağıyla sanal hayvanlara dokunarak ses çıkarmasını sağlayan bir Artırılmış Gerçeklik (AR) uygulamasıdır.
+# AR Hand Detection & Interactive Animal Sounds
 
-🚀 Proje Hakkında
-Bu çalışma, Çukurova Üniversitesi Bilgisayar Mühendisliği bölümü bitirme/ödev çalışmaları kapsamında geliştirilmiştir. Kullanıcı kameradan elini gösterdiğinde, işaret parmağı ucu (landmark 8) tespit edilir ve bu noktaya fiziksel bir collider (küre) atanır. Kullanıcı bu küre aracılığıyla sahnede bulunan hayvan modellerine temas ettiğinde ilgili hayvanın sesi tetiklenir.
+## About the Project
+This project is an Augmented Reality (AR) application that utilizes the MediaPipe Unity Plugin for real-time hand tracking. It creates an interactive environment where users can physically interact with virtual 3D animal models using their index finger to trigger specific audio responses.
 
-🛠️ Teknik Özellikler
-El Takibi: MediaPipe Hand Landmarker API kullanılarak 21 el eklem noktası anlık olarak takip edilir.
+Developed as part of the Computer Engineering curriculum at Çukurova University, the system processes a live camera feed to detect the user's hand. It identifies the tip of the index finger (landmark 8) and dynamically maps a physical collider (a sphere) to this coordinate. When the user "touches" an animal model in the scene via this collider, the corresponding animal sound is triggered.
 
-Dinamik Etkileşim: İşaret parmağı koordinatları, MobileHandLinker scripti aracılığıyla 3D uzaydaki bir objeye (IndexFingerCollider) aktarılır.
+## Technical Specifications
+* **Real-Time Hand Tracking:** Utilizes the MediaPipe Hand Landmarker API to continuously track 21 distinct hand joint points (landmarks).
+* **Dynamic Spatial Interaction:** The MobileHandLinker script maps the dynamic coordinates of the index finger to a 3D object (IndexFingerCollider) in the Unity workspace.
+* **Event-Driven Audio System:** Trigger collision mechanics are attached to the animal models, ensuring accurate sound execution upon contact with the finger object.
+* **Computer Vision & Rendering:** The live camera feed and landmark annotations are processed and rendered on the UI via cam2 and the Annotatable Screen.
 
-Ses Sistemi: Hayvan modelleri üzerine yerleştirilen trigger sistemleri, parmak objesiyle temas anında ses üretimini sağlar.
+## Installation & Setup
+1. Clone this repository to your local machine.
+2. Open the project using Unity 2022.3.x.
+3. Ensure that the MediaPipe Unity Plugin is properly installed within the Packages directory.
+4. In the Unity hierarchy, locate the Solution object. Navigate to the HandLandmarkerRunnerConfig component and assign the hand_landmarker.task file to the appropriate field.
+5. Press the Play button in the Unity Editor to initialize your web camera and start the application.
 
-Görüntü İşleme: cam2 ve Annotatable Screen üzerinden kamera görüntüsü işlenerek landmarklar ekrana çizdirilir.
-
-👥 Proje Ekibi ve Danışmanlar
-Geliştirici: Esra İclal Boğar - @esraiclal
-
-Proje Danışmanı / Hocası: @dryuemco 
-
-📦 Kurulum ve Çalıştırma
-Bu repository'yi klonlayın.
-
-Unity 2022.3.x sürümü ile projeyi açın.
-
-Packages klasöründen MediaPipe Unity Plugin'in kurulu olduğundan emin olun.
-
-Solution objesindeki HandLandmarkerRunnerConfig dosyasına hand_landmarker.task dosyasını bağlayın.
-
-Play butonuna basarak kameranızı başlatın.
+## Project Team
+* **Developer:** Esra İclal Boğar - [@esraiclal](https://github.com/esraiclal)
+* **Project Advisor:** [@dryuemco](https://github.com/dryuemco)
